@@ -1,18 +1,23 @@
+from base_fitness_function import BaseFitnessFunction
+from base_individual import BaseIndividual
 from representations.ordinal_representation.ordinal_service import form_order_city_index
 
 
-def ordinal_fitness_function(matrix, individual):
-    """ Вычисление приспособленности"""
-    fitness = 0
-    order_city_index = form_order_city_index(len(individual))
+class OrdinalFitnessFunction(BaseFitnessFunction):
+    def __init__(self, matrix):
+        self.matrix = matrix
 
-    travel_representation_genes = []
-    for gen in individual.genes:
-        el = order_city_index[gen]
-        travel_representation_genes.append(el)
-        order_city_index.remove(el)
+    def __call__(self, individual: BaseIndividual, *args, **kwargs) -> int:
+        fitness = 0
+        order_city_index = form_order_city_index(len(individual))
 
-    for city_index in range(len(individual) - 1):
-        fitness += matrix[travel_representation_genes[city_index]][travel_representation_genes[city_index + 1]]
-    fitness += matrix[travel_representation_genes[city_index + 1]][travel_representation_genes[0]]
-    return fitness
+        travel_representation_genes = []
+        for gen in individual.genes:
+            el = order_city_index[gen]
+            travel_representation_genes.append(el)
+            order_city_index.remove(el)
+
+        for city_index in range(len(individual) - 1):
+            fitness += self.matrix[travel_representation_genes[city_index]][travel_representation_genes[city_index + 1]]
+        fitness += self.matrix[travel_representation_genes[city_index + 1]][travel_representation_genes[0]]
+        return fitness

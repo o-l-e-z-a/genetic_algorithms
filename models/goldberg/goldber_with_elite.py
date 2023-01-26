@@ -1,11 +1,15 @@
-from models.goldberg.simple_goldberg import Goldberg
+from base_individual import BaseIndividual
+from models.base.base_model import GeneticaAlgorithmBuilder
+from models.goldberg.service import check_for_positive_int
+from models.goldberg.simple_goldberg_with_builder import Goldberg
 
 
 class GoldbergWithElite(Goldberg):
     """ Представление алгоритма Голдберга с элитными особями """
-    def __init__(self, elite_count, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.elite_count = elite_count
+
+    def __init__(self):
+        super().__init__()
+        self.elite_count: int | None = None
 
     def set_new_generation(self):
         """ Задать новое поколение"""
@@ -19,7 +23,7 @@ class GoldbergWithElite(Goldberg):
         for elite in elites:
             self._new_generation.append(elite[1])
 
-    def get_elites(self):
+    def get_elites(self) -> list[tuple[int, BaseIndividual]]:
         """ Получить элиту"""
         elites = []
         fitness = [self.fitness_function(individual) for individual in self._current_generation]
@@ -29,3 +33,9 @@ class GoldbergWithElite(Goldberg):
             if self.fitness_function(individual) in elites_fitness:
                 elites.append((index, individual))
         return elites[:self.elite_count]
+
+
+class GeneticaAlgorithmWithEliteBuilder(GeneticaAlgorithmBuilder):
+    def create_params(self, elite_count: int, *args, **kwargs):
+        super().create_params(*args, **kwargs)
+        self.genetica_algorithm.elite_count = check_for_positive_int(elite_count)

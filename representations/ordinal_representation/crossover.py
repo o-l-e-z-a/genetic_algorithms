@@ -1,14 +1,16 @@
 from base_crossover import BaseCrossover
+from base_individual import BaseIndividual
 from service import get_random_index
 
 
 class SinglePointCrossover(BaseCrossover):
     """ Представление одноточечного кроссовера"""
 
-    def get_indices(self, indices):
-        self._index = indices if indices else get_random_index(end=self._genes_length - 2, start=1)
+    def get_indices(self, genes_length: int):
+        return get_random_index(end=genes_length - 2, start=1)
 
-    def crossover(self):
-        child_1_genes = self._parent_2.genes[:self._index] + self._parent_1.genes[self._index:]
-        child_2_genes = self._parent_1.genes[:self._index] + self._parent_2.genes[self._index:]
+    def crossover(self, parent_1: BaseIndividual, parent_2: BaseIndividual) -> tuple[list, list]:
+        index = self.get_indices(len(parent_1))
+        child_1_genes = parent_2.genes[:index] + parent_1.genes[index:]
+        child_2_genes = parent_1.genes[:index] + parent_2.genes[index:]
         return child_1_genes, child_2_genes

@@ -1,3 +1,4 @@
+from base_individual import BaseIndividual
 from base_mutation import BaseMutation
 from service import get_random_index
 
@@ -5,12 +6,11 @@ from service import get_random_index
 class SinglePointOrdinalMutation(BaseMutation):
     """ Одноточечная мутация для порядкового представления """
 
-    def get_indices(self, indices):
-        if indices:
-            self._index, self._random_value = indices
-        else:
-            self._index = get_random_index(end=len(self.individual) - 1)
-            self._random_value = get_random_index(end=len(self.individual) - self._index - 1)
+    def get_indices(self, genes_length: int):
+        index = get_random_index(end=genes_length - 1)
+        random_value = get_random_index(end=genes_length - index - 1)
+        return index, random_value
 
-    def mutation(self):
-        self.individual[self._index] = self._random_value
+    def mutation(self, individual: BaseIndividual):
+        index, random_value = self.get_indices(len(individual))
+        individual[index] = random_value

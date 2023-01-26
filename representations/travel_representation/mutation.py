@@ -1,3 +1,4 @@
+from base_individual import BaseIndividual
 from base_mutation import BaseMutation
 from service import get_random_indices
 
@@ -5,9 +6,10 @@ from service import get_random_indices
 class MutationExchange(BaseMutation):
     """ Мутация обменом """
 
-    def get_indices(self, indices):
-        self._index_1, self._index_2 = indices if indices else get_random_indices(end=len(self.individual) - 1)
+    def get_indices(self, genes_length: int):
+        index_1, index_2 = get_random_indices(end=genes_length - 1)
+        return index_1, index_2
 
-    def mutation(self):
-        self.individual[self._index_1], self.individual[self._index_2] = \
-            self.individual[self._index_2], self.individual[self._index_1]
+    def mutation(self, individual: BaseIndividual):
+        index_1, index_2 = self.get_indices(len(individual))
+        individual[index_1], individual[index_2] = individual[index_2], individual[index_1]

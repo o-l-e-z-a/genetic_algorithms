@@ -1,56 +1,69 @@
 from base_crossover import BaseCrossover
+from base_individual import BaseIndividual
 from service import get_random_index, get_random_indices
 
 
 class OrderedCrossover(BaseCrossover):
     """ Представление упорядоченного кроссовера """
 
-    def crossover(self):
-        child_1_genes = self.get_crossed_genes()
-        self._parent_1, self._parent_2 = self._parent_2, self._parent_1
-        child_2_genes = self.get_crossed_genes()
+    def crossover(self, parent_1: BaseIndividual, parent_2: BaseIndividual) -> tuple[list, list]:
+        genes_length = len(parent_1)
+        index_1, index_2 = self.get_indices(genes_length)
+        child_1_genes = self.get_crossed_genes(parent_1, parent_2, index_1, index_2)
+        child_2_genes = self.get_crossed_genes(parent_2, parent_1, index_1, index_2)
         return child_1_genes, child_2_genes
 
-    def get_indices(self, indices):
-        self._index_1, self._index_2 = indices if indices else get_random_indices(end=self._genes_length - 1)
-        if self._index_1 > self._index_2:
-            self._index_1, self._index_2 = self._index_2, self._index_1
+    def get_indices(self, genes_length: int):
+        index_1, index_2 = get_random_indices(end=genes_length - 1)
+        if index_1 > index_2:
+            index_1, index_2 = index_2, index_1
+        return index_1, index_2
 
-    def get_crossed_genes(self):
+    def get_crossed_genes(
+            self,
+            parent_1: BaseIndividual,
+            parent_2: BaseIndividual,
+            index_1: int,
+            index_2: int
+    ) -> list:
         """ Получение генов ребенка от двух родителей """
-        result = [0 for i in range(self._genes_length)]
-        result[self._index_1: self._index_2] = self._parent_1.genes[self._index_1: self._index_2]
-        parent_2_list = self._parent_2.genes[self._index_2:] + self._parent_2.genes[:self._index_2]
-        for gen in self._parent_1.genes[self._index_1: self._index_2]:
+        genes_length = len(parent_1)
+        result = [0 for i in range(genes_length)]
+        result[index_1: index_2] = parent_1.genes[index_1: index_2]
+        parent_2_list = parent_2.genes[index_2:] + parent_2.genes[:index_2]
+        for gen in parent_1.genes[index_1: index_2]:
             if gen in parent_2_list:
                 parent_2_list.pop(parent_2_list.index(gen))
-        result[self._index_2:] = parent_2_list[:self._genes_length - self._index_2]
-        result[:self._index_1] = parent_2_list[self._genes_length - self._index_2:]
+        result[index_2:] = parent_2_list[:genes_length - index_2]
+        result[:index_1] = parent_2_list[genes_length - index_2:]
         return result
 
 
 class ChangesCrossover(BaseCrossover):
     """ Представление изменённого кроссовера """
-    def get_indices(self, indices):
-        self._index = indices if indices else get_random_index(start=1, end=self._genes_length - 2)
 
-    def crossover(self):
-        child_1_genes = self.get_crossed_genes()
-        self._parent_1, self._parent_2 = self._parent_2, self._parent_1
-        child_2_genes = self.get_crossed_genes()
+    def crossover(self, parent_1: BaseIndividual, parent_2: BaseIndividual) -> tuple[list, list]:
+        genes_length = len(parent_1)
+        index = self.get_indices(genes_length)
+        child_1_genes = self.get_crossed_genes(parent_1, parent_2, index)
+        child_2_genes = self.get_crossed_genes(parent_2, parent_1, index)
         return child_1_genes, child_2_genes
 
-    def get_crossed_genes(self):
+    def get_indices(self, genes_length: int):
+        index = get_random_index(start=1, end=genes_length - 2)
+        return index
+
+    def get_crossed_genes(self, parent_1: BaseIndividual, parent_2: BaseIndividual, index: int) -> list:
         """ Получение генов ребенка от двух родителей """
         result = []
-        result.extend(self._parent_1.genes[:self._index])
-        for gen in self._parent_2.genes[self._index:]:
+        result.extend(parent_1.genes[:index])
+        for gen in parent_2.genes[index:]:
             if gen not in result:
                 result.append(gen)
-        for gen in self._parent_1.genes[:self._index]:
+        for gen in parent_1.genes[:index]:
             if gen not in result:
                 result.append(gen)
-        for gen in self._parent_1.genes[self._index:]:
+        for gen in parent_1.genes[index:]:
             if gen not in result:
                 result.append(gen)
         return result

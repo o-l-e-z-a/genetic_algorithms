@@ -1,18 +1,14 @@
 import abc
+from base_individual import BaseIndividual
 
 
 class BaseCrossover(abc.ABC):
     """ Базовое представление кроссовера """
 
-    def __init__(self, individuals, indices=None):
-        self._parent_1, self._parent_2 = individuals
-        self._genes_length = len(self._parent_1)
-        self.get_indices(indices)
-
     @abc.abstractmethod
-    def get_indices(self, indices):
+    def get_indices(self, *args, **kwargs):
         """ Получение границ(ы) для кросоввера"""
 
     @abc.abstractmethod
-    def crossover(self, individuals):
+    def crossover(self, parent_1: BaseIndividual, parent_2: BaseIndividual) -> tuple[list, list]:
         """ Осуществление кроссовера"""

@@ -1,6 +1,7 @@
 import abc
+import copy
 import random
-from typing import MutableSequence, Any
+from typing import MutableSequence, Any, Type
 
 from form_genes_with_greedy_heuristics import FormStartGenes
 
@@ -59,3 +60,11 @@ class IndividualWithFormedInitialGenes(BaseIndividual):
     def set_initial_genes(self):
         form_start_genes = FormStartGenes(self.key, self.matrix, self)
         self._genes = form_start_genes.get_formed_initial_genes()
+
+
+class IndividualPrototype:
+    def __init__(self, individual_type: Type[BaseIndividual], *individual_args, **individual_kwargs):
+        self.individual_type = individual_type(*individual_args, **individual_kwargs)
+
+    def get_new_individual(self) -> BaseIndividual:
+        return copy.deepcopy(self.individual_type)

@@ -1,17 +1,16 @@
 import abc
 
+from base_individual import BaseIndividual
+
 
 class BaseMutation(abc.ABC):
     """ Базовое представление мутации """
 
-    def __init__(self, individual, indices=None):
-        self.individual = individual
-        self.get_indices(indices)
-
     @abc.abstractmethod
-    def get_indices(self, indices):
+    def get_indices(self, *args, **kwargs):
         """ Получение точек мутации"""
 
     @abc.abstractmethod
-    def mutation(self):
+    def mutation(self, individual: BaseIndividual):
         """ Осуществление мутации """
+        self.get_indices()
