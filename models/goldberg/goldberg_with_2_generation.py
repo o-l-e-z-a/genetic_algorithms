@@ -2,7 +2,7 @@ from multiprocessing import Pool
 
 from models.base.base_model import BaseModel, GeneticaAlgorithmBuilder
 from models.goldberg.goldber_with_elite import GoldbergWithElite
-from models.goldberg.simple_goldberg_with_builder import Goldberg
+from models.goldberg.simple_goldberg import Goldberg
 
 
 class GoldbergWithTwoGeneration(Goldberg):

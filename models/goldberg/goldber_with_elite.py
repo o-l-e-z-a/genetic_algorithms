@@ -1,7 +1,7 @@
 from base_individual import BaseIndividual
 from models.base.base_model import GeneticaAlgorithmBuilder
 from models.goldberg.service import check_for_positive_int
-from models.goldberg.simple_goldberg_with_builder import Goldberg
+from models.goldberg.simple_goldberg import Goldberg
 
 
 class GoldbergWithElite(Goldberg):
