@@ -1,8 +1,6 @@
-from functools import partial
-
-from base_individual import BaseIndividual
+from individuals.base_individual import BaseIndividual
 from models.base.base_model import BaseModel
-from service import get_random_indices, get_random_index
+from services.service import get_random_indices, get_random_index
 
 
 class Goldberg(BaseModel):

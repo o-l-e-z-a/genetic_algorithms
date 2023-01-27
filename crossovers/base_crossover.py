@@ -1,5 +1,5 @@
 import abc
-from base_individual import BaseIndividual
+from individuals.base_individual import BaseIndividual
 
 
 class BaseCrossover(abc.ABC):

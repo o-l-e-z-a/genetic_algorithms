@@ -1,6 +1,6 @@
-from base_fitness_function import BaseFitnessFunction
-from base_individual import BaseIndividual
-from representations.ordinal_representation.ordinal_service import form_order_city_index
+from fitness_functions.base_fitness_function import BaseFitnessFunction
+from individuals.base_individual import BaseIndividual
+from problems.traveling_salesman_problem.representations.ordinal_representation.ordinal_service import form_order_city_index
 
 
 class OrdinalFitnessFunction(BaseFitnessFunction):

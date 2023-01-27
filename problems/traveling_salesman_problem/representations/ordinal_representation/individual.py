@@ -1,7 +1,7 @@
 import random
 
-from base_individual import IndividualWithRandomInitialGenes, IndividualWithFormedInitialGenes
-from representations.ordinal_representation.ordinal_service import form_order_city_index
+from individuals.base_individual import IndividualWithRandomInitialGenes, IndividualWithFormedInitialGenes
+from problems.traveling_salesman_problem.representations.ordinal_representation.ordinal_service import form_order_city_index
 
 
 class OrdinalIndividualWithRandomInitialGenes(IndividualWithRandomInitialGenes):

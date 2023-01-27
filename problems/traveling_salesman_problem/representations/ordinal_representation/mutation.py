@@ -1,6 +1,6 @@
-from base_individual import BaseIndividual
-from base_mutation import BaseMutation
-from service import get_random_index
+from individuals.base_individual import BaseIndividual
+from mitations.base_mutation import BaseMutation
+from services.service import get_random_index
 
 
 class SinglePointOrdinalMutation(BaseMutation):

@@ -1,6 +1,6 @@
 from typing import Any, Type
 
-from base_individual import BaseIndividual
+from individuals.base_individual import BaseIndividual
 
 
 class BaseFitnessFunction:
@@ -14,4 +14,3 @@ class FitnessFunctionFactory:
     @staticmethod
     def create_fitness_function(fitness_function: Type[BaseFitnessFunction], *args, **kwargs):
         return fitness_function(*args, **kwargs)
-
