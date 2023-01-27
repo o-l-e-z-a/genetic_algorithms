@@ -1,12 +1,11 @@
 import abc
 
-from base_individual import BaseIndividual
+from individuals.base_individual import BaseIndividual
 
 
 class BaseMutation(abc.ABC):
     """ Базовое представление мутации """
 
-    @abc.abstractmethod
     def get_indices(self, *args, **kwargs):
         """ Получение точек мутации"""
 

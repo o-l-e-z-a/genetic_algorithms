@@ -1,11 +1,10 @@
 import abc
-from base_individual import BaseIndividual
+from individuals.base_individual import BaseIndividual
 
 
 class BaseCrossover(abc.ABC):
     """ Базовое представление кроссовера """
 
-    @abc.abstractmethod
     def get_indices(self, *args, **kwargs):
         """ Получение границ(ы) для кросоввера"""
 

@@ -3,7 +3,7 @@ import copy
 import random
 from typing import MutableSequence, Any, Type
 
-from form_genes_with_greedy_heuristics import FormStartGenes
+from services.form_genes_with_greedy_heuristics import FormStartGenes
 
 
 class BaseIndividual(abc.ABC):

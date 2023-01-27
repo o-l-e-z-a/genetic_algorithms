@@ -1,5 +1,5 @@
-from base_fitness_function import BaseFitnessFunction
-from base_individual import BaseIndividual
+from fitness_functions.base_fitness_function import BaseFitnessFunction
+from individuals.base_individual import BaseIndividual
 
 
 class TravelFitnessFunction(BaseFitnessFunction):

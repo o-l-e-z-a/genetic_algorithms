@@ -1,6 +1,6 @@
-from base_crossover import BaseCrossover
-from base_individual import BaseIndividual
-from service import get_random_index, get_random_indices
+from crossovers.base_crossover import BaseCrossover
+from individuals.base_individual import BaseIndividual
+from services.service import get_random_index, get_random_indices
 
 
 class OrderedCrossover(BaseCrossover):
