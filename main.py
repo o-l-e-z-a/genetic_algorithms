@@ -1,9 +1,5 @@
-# from matriсes.books_matrix import var as now_matrix
-
-
 def main():
-
-
+    pass
 
 
 if __name__ == '__main__':
