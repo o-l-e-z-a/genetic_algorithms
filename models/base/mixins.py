@@ -1,6 +1,7 @@
 from multiprocessing import Pool
 
 from individuals.base_individual import BaseIndividual
+
 from models.base.base_model import BaseModel
 
 

@@ -1,5 +1,7 @@
 from crossovers.base_crossover import BaseCrossover
+
 from individuals.base_individual import BaseIndividual
+
 from services.service import get_random_index
 
 

@@ -1,5 +1,7 @@
 from individuals.base_individual import BaseIndividual
+
 from mitations.base_mutation import BaseMutation
+
 from services.service import get_random_index
 
 

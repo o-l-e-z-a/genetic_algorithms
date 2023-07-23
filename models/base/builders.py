@@ -1,10 +1,15 @@
 from typing import Type
 
 from crossovers.base_crossover import BaseCrossover
+
 from fitness_functions.base_fitness_function import BaseFitnessFunction
+
 from individuals.base_individual import BaseIndividual, IndividualPrototype
+
 from mitations.base_mutation import BaseMutation
+
 from selections.base_selection import BaseSelection
+
 from models.base.base_model import BaseModel
 from models.goldberg.service import check_for_positive_int, check_probability
 
@@ -21,7 +26,7 @@ class GeneticaAlgorithmBuilder:
             number_of_repetitions: int,
             generation_size: int,
             mutation_probability: int,
-            crossover_probability: int
+            crossover_probability: int,
     ):
         self.genetica_algorithm.number_of_repetitions = check_for_positive_int(number_of_repetitions)
         self.genetica_algorithm.generation_size = check_for_positive_int(generation_size)
@@ -62,10 +67,11 @@ class GeneticaAlgorithmBuilder:
             *selection_args,
             **selection_kwargs
     ):
+        selection_kwargs['fitness_function'] = fitness_function
         self.genetica_algorithm.selection = selection(
-            fitness_function=fitness_function,
             *selection_args,
-            **selection_kwargs)
+            **selection_kwargs
+        )
         return self
 
     def add_fitness_function(
@@ -85,9 +91,24 @@ class EliteBuilderMixin:
 
 
 class GeneticaAlgorithmWithTwoGenerationBuilder:
-    def create_params(self, first_generation_model: BaseModel, *args, **kwargs):
-        super().create_params(*args, **kwargs)
-        self.genetica_algorithm.first_generation_model = first_generation_model
+    def __init__(self):
+        self.base_ga_builder = GeneticaAlgorithmBuilder()
+
+    def create_params(
+            self,
+            number_of_repetitions: int,
+            generation_size: int,
+            mutation_probability: int,
+            crossover_probability: int,
+            first_generation_model: BaseModel,
+    ):
+        self.base_ga_builder.create_params(
+            number_of_repetitions,
+            generation_size,
+            mutation_probability,
+            crossover_probability
+        )
+        self.base_ga_builder.genetica_algorithm.first_generation_model = first_generation_model
 
 
 class GeneticaAlgorithmWithTwoGenerationAndEliteBuilder(

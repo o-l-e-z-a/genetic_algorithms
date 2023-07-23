@@ -8,7 +8,7 @@ class BaseSelection(abc.ABC):
     Базовое представление отбора
     """
 
-    def __init__(self, fitness_function):
+    def __init__(self, fitness_function, *args, **kwargs):
         self.fitness_function = fitness_function
 
     @abc.abstractmethod

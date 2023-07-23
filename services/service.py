@@ -1,5 +1,4 @@
 import random
-import time
 
 
 def get_random_indices(end, index=None):

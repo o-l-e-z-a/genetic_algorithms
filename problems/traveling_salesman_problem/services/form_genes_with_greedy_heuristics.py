@@ -53,7 +53,6 @@ class FormStartGenes:
         self._key_index = 0
         self._matrix = matrix
 
-
     def get_formed_initial_genes(self, start_city=None):
         """ Формирование начальных генов с помощью жадных эвристик"""
         city = start_city if start_city else random.choice(self._not_visited)

@@ -1,4 +1,5 @@
 from fitness_functions.base_fitness_function import BaseFitnessFunction
+
 from individuals.base_individual import BaseIndividual
 
 

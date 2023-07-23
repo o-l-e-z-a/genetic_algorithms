@@ -1,16 +1,22 @@
 from typing import Any
+
 from crossovers.base_crossover import BaseCrossover
+
 from fitness_functions.base_fitness_function import BaseFitnessFunction
+
 from individuals.base_individual import BaseIndividual, IndividualPrototype
+
 from mitations.base_mutation import BaseMutation
+
 from selections.base_selection import BaseSelection
+
 from services.service import get_random_index
 
 
 class BaseModel:
     """ Представление алгоритма Голдберга """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.number_of_repetitions: int | None = None
         self.generation_size: int | None = None
         self.mutation_probability: int | None = None

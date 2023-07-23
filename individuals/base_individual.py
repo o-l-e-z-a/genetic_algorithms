@@ -1,12 +1,11 @@
-import abc
 import copy
 import random
 from typing import MutableSequence, Any, Type
 
-from services.form_genes_with_greedy_heuristics import FormStartGenes
+from problems.traveling_salesman_problem.services.form_genes_with_greedy_heuristics import FormStartGenes
 
 
-class BaseIndividual(abc.ABC):
+class BaseIndividual:
     """ Базовое представление особи"""
 
     def __init__(self, genes: MutableSequence[Any] | None = None, genes_length: int = 0):
@@ -27,6 +26,9 @@ class BaseIndividual(abc.ABC):
     def __eq__(self, other):
         return self._genes == list(other)
 
+    def __iter__(self):
+        return iter(self)
+
     @property
     def genes(self):
         return self._genes
@@ -35,7 +37,6 @@ class BaseIndividual(abc.ABC):
         # Задать новые гены
         self._genes = list(genes)
 
-    @abc.abstractmethod
     def set_initial_genes(self):
         """ Задать начальные гены"""
 

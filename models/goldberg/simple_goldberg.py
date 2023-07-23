@@ -1,5 +1,7 @@
 from individuals.base_individual import BaseIndividual
+
 from models.base.base_model import BaseModel
+
 from services.service import get_random_indices, get_random_index
 
 
@@ -10,6 +12,7 @@ class Goldberg(BaseModel):
         """ Запуск ГА"""
         self.prepare_initial_generation()
         repeat_count, last_best_value, generation_count = 0, 0, -1
+        new_best_value, best_individual = None, None
         while repeat_count != self.number_of_repetitions:
             best_individual = self.get_best_individual()
             new_best_value = self.fitness_function(best_individual)
@@ -24,7 +27,7 @@ class Goldberg(BaseModel):
 
     def prepare_initial_generation(self):
         """ Подготовка начального поколения"""
-        for i in range(self.generation_size):
+        for _ in range(self.generation_size):
             new_individual = self.individual_prototype.get_new_individual()
             new_individual.set_initial_genes()
             self._current_generation.append(new_individual)
@@ -47,7 +50,7 @@ class Goldberg(BaseModel):
     def form_new_individual(self, index: int) -> BaseIndividual:
         """ Сформировать новую особь"""
         parent_1, parent_2 = self.get_new_parents(index)
-        child_1, child_2 = self.start_crossover([parent_1, parent_2])
+        child_1, child_2 = self.start_crossover(parent_1, parent_2)
         self.start_mutation(child_1)
         self.start_mutation(child_2)
         new_individual = self.start_selection([parent_1, child_1, child_2])
